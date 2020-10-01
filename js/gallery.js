@@ -18,6 +18,7 @@ galleryElements.insertAdjacentHTML("beforeend", galleryCollection);
 galleryElements.addEventListener("click", onModalOpen);
 ovrlEl.addEventListener("click", onCloseModalClick);
 btnCloseEl.addEventListener("click", onModalClose);
+ovrlEl.addEventListener("click", onBackDropClick);
 
 // шаблонная строка
 function createImageGalery(galleryItems) {
@@ -53,6 +54,7 @@ function onModalOpen(event) {
 
   document.addEventListener("click", onCloseModalClick);
   modalWindow.classList.add("is-open");
+  window.addEventListener("keydown", onEscapePress);
 
   imgEl.src = event.target.dataset.source;
   imgEl.alt = event.target.alt;
@@ -61,6 +63,7 @@ function onModalOpen(event) {
 // закрытие модального окна по клику и удаление класса is-open, очистка значения атрибута src
 function onModalClose() {
   document.removeEventListener("click", onCloseModalClick);
+  window.removeEventListener("keydown", onEscapePress);
 
   modalWindow.classList.remove("is-open");
   imgEl.src = "";
@@ -69,6 +72,25 @@ function onModalClose() {
 // Закрытие модального окна по кнопке
 function onCloseModalClick(event) {
   if (event.code === "Click") {
+    onModalClose();
+  }
+}
+
+// закрытие модалки по клику на бэкдроп
+
+function onBackDropClick(event) {
+  // сравниваем событие и проверяем кликаем ли мы в backdrop
+  if (event.currentTarget === event.target) {
+    console.log("click on backdrop");
+  }
+  // вызываем функцию закрытия модального окна
+  onModalClose();
+}
+
+// функция закрытия модального окна через Escape
+function onEscapePress(event) {
+  // без code окно закрывается при любом нажатии
+  if (event.code === "Escape") {
     onModalClose();
   }
 }
