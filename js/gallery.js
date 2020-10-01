@@ -76,14 +76,7 @@ function onCloseModalClick(event) {
   }
 }
 
-// закрытие модалки по клику на бэкдроп
-
 function onBackDropClick(event) {
-  // сравниваем событие и проверяем кликаем ли мы в backdrop
-  if (event.currentTarget === event.target) {
-    console.log("click on backdrop");
-  }
-  // вызываем функцию закрытия модального окна
   onModalClose();
 }
 
